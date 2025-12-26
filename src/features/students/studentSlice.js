@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseApiUrl = "https://be-student-management.vercel.app/";
+
 export const fetchStudents = createAsyncThunk(
   "students/fetchStudents",
   async () => {
-    const response = await axios.get("http://localhost:3000/students");
+    const response = await axios.get(`${baseApiUrl}/students`);
     return response.data;
   }
 );
@@ -12,10 +14,7 @@ export const fetchStudents = createAsyncThunk(
 export const addStudents = createAsyncThunk(
   "students/addStudents",
   async (studentData) => {
-    const response = await axios.post(
-      "http://localhost:3000/students",
-      studentData
-    );
+    const response = await axios.post(`${baseApiUrl}/students`, studentData);
     return response.data;
   }
 );
@@ -24,7 +23,7 @@ export const editStudents = createAsyncThunk(
   "students/editStudents",
   async ({ id, dataToUpdate }) => {
     const response = await axios.put(
-      `http://localhost:3000/students/${id}`,
+      `${baseApiUrl}/students/${id}`,
       dataToUpdate
     );
     return response.data;
@@ -34,7 +33,7 @@ export const editStudents = createAsyncThunk(
 export const deleteStudents = createAsyncThunk(
   "students/deleteStudents",
   async (id) => {
-    const response = await axios.delete(`http://localhost:3000/students/${id}`);
+    const response = await axios.delete(`${baseApiUrl}/students/${id}`);
     return response.data;
   }
 );
@@ -49,7 +48,7 @@ export const filterStudentsByGender = (state) => {
 
 export const filterSortByValue = (state) => {
   const { sortBy } = state.students;
-  const students = filterStudentsByGender(state)
+  const students = filterStudentsByGender(state);
 
   const result = [...students];
 
@@ -57,9 +56,12 @@ export const filterSortByValue = (state) => {
     case "marks":
       return result.sort((a, b) => parseFloat(b.marks) - parseFloat(a.marks));
     case "attendance":
-      return result.sort((a, b) => parseFloat(b.attendance) - parseFloat(a.attendance));
+      return result.sort(
+        (a, b) => parseFloat(b.attendance) - parseFloat(a.attendance)
+      );
     default:
-      return result.sort((a, b) => a.name.localeCompare(b.name));z
+      return result.sort((a, b) => a.name.localeCompare(b.name));
+      z;
   }
 };
 

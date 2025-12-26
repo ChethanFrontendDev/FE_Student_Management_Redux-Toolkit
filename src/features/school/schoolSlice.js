@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const baseApiUrl = "https://be-student-management.vercel.app/";
+
 export const fetchTeacher = createAsyncThunk(
   "teacher/fetchTeacher",
   async () => {
-    const response = await axios.get("http://localhost:3000/teachers");
+    const response = await axios.get(`${baseApiUrl}/teachers`);
     return response.data;
   }
 );
@@ -12,10 +14,7 @@ export const fetchTeacher = createAsyncThunk(
 export const addTeacher = createAsyncThunk(
   "teacher/addTeacher",
   async (teacherData) => {
-    const response = await axios.post(
-      "http://localhost:3000/teachers",
-      teacherData
-    );
+    const response = await axios.post(`${baseApiUrl}/teachers`, teacherData);
     return response.data;
   }
 );
@@ -23,9 +22,7 @@ export const addTeacher = createAsyncThunk(
 export const deleteTeacher = createAsyncThunk(
   "teacher/deleteTeacher",
   async (teacherId) => {
-    const response = await axios.delete(
-      `http://localhost:3000/teachers/${teacherId}`
-    );
+    const response = await axios.delete(`${baseApiUrl}/teachers/${teacherId}`);
     return teacherId;
   }
 );

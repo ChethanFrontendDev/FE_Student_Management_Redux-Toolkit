@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const baseApiUrl = "https://be-student-management.vercel.app/";
+const baseApiUrl = "https://be-student-management.vercel.app";
 
 export const fetchTeacher = createAsyncThunk(
   "teacher/fetchTeacher",

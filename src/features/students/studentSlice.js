@@ -34,7 +34,7 @@ export const deleteStudents = createAsyncThunk(
   "students/deleteStudents",
   async (id) => {
     const response = await axios.delete(`${baseApiUrl}/students/${id}`);
-    return response.data;
+    return id;
   }
 );
 
